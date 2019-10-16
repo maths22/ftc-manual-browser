@@ -1,0 +1,12 @@
+# frozen_string_literal: true
+
+source "https://rubygems.org"
+
+gem 'elasticsearch', '~> 6.8.0'
+gem 'aws-sdk-ssm'
+gem 'aws-sdk-dynamodb'
+gem 'pdf-reader'
+gem 'require_all'
+
+gem 'nokogiri'
+gem 'chronic'

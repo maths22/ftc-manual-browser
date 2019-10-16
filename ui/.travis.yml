@@ -1,0 +1,18 @@
+dist: xenial
+language: minimal
+
+services:
+  - docker
+
+install:
+  - export REPO=maths22/ftc-manual-browser-react
+
+script:
+  - docker build -f Dockerfile -t $REPO:$TRAVIS_COMMIT --build-arg REACT_APP_COMMIT=$TRAVIS_COMMIT .
+
+after_success:
+  - echo "$DOCKER_PASSWORD" | docker login -u $DOCKER_USER --password-stdin
+  - export TAG=`if [ "$TRAVIS_BRANCH" == "master" ]; then echo "latest"; else echo $TRAVIS_BRANCH ; fi`
+  - docker tag $REPO:$TRAVIS_COMMIT $REPO:travis-$TRAVIS_BUILD_NUMBER
+  - docker tag $REPO:$TRAVIS_COMMIT $REPO:$TAG
+  - docker push $REPO

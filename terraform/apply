@@ -1,0 +1,1 @@
+rm query.zip && zip -r query.zip import.rb query.rb lib vendor && pushd ../terraform && terraform apply -auto-approve && popd
