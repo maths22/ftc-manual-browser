@@ -31,7 +31,10 @@ class PdfImporter
   end
 
   def headings
+    # workarounds for strange headings in gm pt 1 skystone
     @headings ||= self.stripped_text.scan(/^.*\S+ .*?(?= ?\.\.+ ?[0-9]+$)/).map(&:strip)
+      .reject { |s| s == 'Contents' }
+      .map { |str| str.split(/(?<=[a-z])(?=[A-Z])/).join(' ').split(',')[0] }
   end
 
   def body_text

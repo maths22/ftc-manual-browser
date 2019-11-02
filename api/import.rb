@@ -14,5 +14,7 @@ def handler(event:, context:)
         ':u' => DateTime.now.iso8601
       }
     )
+  rescue
+    # Do nothing, but at least import the next entry...
   end
 end
