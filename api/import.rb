@@ -14,7 +14,9 @@ def handler(event:, context:)
         ':u' => DateTime.now.iso8601
       }
     )
-  rescue
+  rescue => error
     # Do nothing, but at least import the next entry...
+    puts error.message
+    puts error.backtrace
   end
 end

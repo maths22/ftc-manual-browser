@@ -95,7 +95,8 @@ class PdfImporter
   end
 
   def rules
-    self.headings.select { |h| h.include? 'Rules' }.flat_map do |heading|
+    # Team Scoring Element is a rules category, but for the skystone season it didn't have "Rules" in its heading
+    self.headings.select { |h| h.include?('Rules') || h.include?('Team Scoring Element') }.flat_map do |heading|
       clean_heading = heading.gsub /[0-9.]+\s*/, ''
       parse_rules(self.sections[heading]).map do |rule|
         rule[:category] = clean_heading
@@ -120,7 +121,7 @@ class PdfImporter
       remainder = rule_match[3]
     end
 
-    rule_match = remainder.match /^([^\r\n\uF0B7\u2022]*?) [-–] ?(.*)/m
+    rule_match = remainder.match /^(<[A-Z]+[0-9]+>) ?(.*)/m
     done = rule_match.nil?
     return rules if done
 
