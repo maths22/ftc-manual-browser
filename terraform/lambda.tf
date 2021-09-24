@@ -5,7 +5,7 @@ resource "aws_lambda_function" "ftc_manual_query_func" {
   source_code_hash = filebase64sha256(var.query_func_filename)
 
   handler     = var.query_func_handler
-  runtime     = "ruby2.5"
+  runtime     = "ruby2.7"
   timeout     = "300"
   memory_size = "256"
 
@@ -37,7 +37,7 @@ resource "aws_lambda_function" "ftc_manual_index_func" {
   source_code_hash = filebase64sha256(var.query_func_filename)
 
   handler     = var.index_func_handler
-  runtime     = "ruby2.5"
+  runtime     = "ruby2.7"
   timeout     = "900"
   memory_size = "512"
 

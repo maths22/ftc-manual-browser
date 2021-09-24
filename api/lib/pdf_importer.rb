@@ -152,12 +152,12 @@ class PdfImporter
     @sections ||= self.headings.map.with_index do |heading, idx|
       if idx == self.headings.length - 1
         [heading, body_text.match(Regexp.new(
-          "\s*#{Regexp.escape(heading).gsub(' ', ' ?')}(.*)",
+          "^\s*#{Regexp.escape(heading).gsub(' ', ' ?')}(.*)",
           Regexp::MULTILINE
         ))[1]]
       else
         [heading, body_text.match(Regexp.new(
-          "\s*#{Regexp.escape(heading).gsub(' ', ' ?')}(.*)\s*#{Regexp.escape(self.headings[idx + 1]).gsub(' ', ' ?')}",
+          "^\s*#{Regexp.escape(heading).gsub(' ', ' ?')}(.*)^\s*#{Regexp.escape(self.headings[idx + 1]).gsub(' ', ' ?')}",
           Regexp::MULTILINE
         ))[1]]
       end

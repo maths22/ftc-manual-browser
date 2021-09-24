@@ -1,1 +1,13 @@
-rm -f query.zip && zip -r query.zip import.rb query.rb lib vendor && pushd ../terraform && terraform apply -auto-approve && popd
+#!/usr/bin/env bash
+
+set -x
+
+tf_dir=$(dirname $0)
+
+pushd $tf_dir/../api
+rm -f query.zip
+zip -r query.zip import.rb query.rb lib vendor
+popd
+pushd $tf_dir
+terraform apply -auto-approve
+popd

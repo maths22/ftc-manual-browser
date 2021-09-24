@@ -10,7 +10,8 @@ class Query
                               'title^3',
                               'body',
                               'question',
-                              'answer'
+                              'answer',
+                              'category'
                             ],
                             default_operator: 'and'
                         } } }

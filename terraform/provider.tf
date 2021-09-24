@@ -1,9 +1,8 @@
 provider "aws" {
   region  = "us-west-2"
-  version = "~> 2.7.0"
 
   assume_role {
-    role_arn = "arn:aws:iam::119630856374:role/admin"
+    role_arn   = "arn:aws:iam::119630856374:role/admin"
   }
 }
 
@@ -14,7 +13,7 @@ terraform {
     key    = "ftc-manual-browser.tfstate"
   }
 
-  required_version = ">= 0.12.0"
+  required_version = ">= 1.0"
 }
 
 data "aws_caller_identity" "current" {}
