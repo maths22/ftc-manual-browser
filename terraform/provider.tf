@@ -1,6 +1,10 @@
 provider "aws" {
   region  = "us-west-2"
   version = "~> 2.7.0"
+
+  assume_role {
+    role_arn = "arn:aws:iam::119630856374:role/admin"
+  }
 }
 
 terraform {

@@ -2,7 +2,7 @@
 
 set -e
 declare -A distributions
-distributions[production]=E1R2QWPE6048DL
+distributions[production]=E3ECJXC2ASWALS
 
 environment=$1
 

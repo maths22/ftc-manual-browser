@@ -23,7 +23,7 @@ resource "aws_s3_bucket_policy" "asset_bucket" {
 }
 
 resource "aws_s3_bucket" "asset_bucket" {
-  bucket = "ftc-manual-assets-production"
+  bucket = "ftc-manual-assets-${terraform.workspace}"
   acl    = "public-read"
 
   website {

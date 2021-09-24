@@ -15,5 +15,9 @@ variable "ui_domains" {
 }
 
 variable "ui_cert_arn" {
-  default = "arn:aws:acm:us-east-1:902151335766:certificate/e3826aab-6bd2-4827-b7b6-3d663d832f85"
+  default = "arn:aws:acm:us-east-1:119630856374:certificate/f6e639b7-7bef-4733-8125-77b1ad26fece"
+}
+
+variable "api_cert_arn" {
+  default = "arn:aws:acm:us-west-2:119630856374:certificate/97b6b76b-37c7-4916-8720-aab734146661"
 }

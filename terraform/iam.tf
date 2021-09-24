@@ -11,7 +11,7 @@ data "aws_iam_policy_document" "assume_role_policy" {
 }
 
 resource "aws_iam_role" "ftc_manual_lambda_role" {
-  name = "FtcManualBrowser-lambda-role"
+  name = "FtcManualBrowser-lambda-role-${terraform.workspace}"
 
   assume_role_policy = data.aws_iam_policy_document.assume_role_policy.json
 }

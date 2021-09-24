@@ -1,5 +1,5 @@
 resource "aws_lambda_function" "ftc_manual_query_func" {
-  function_name = "FtcManualQueryApi"
+  function_name = "FtcManualQueryApi-${terraform.workspace}"
   filename      = var.query_func_filename
 
   source_code_hash = filebase64sha256(var.query_func_filename)
@@ -31,7 +31,7 @@ resource "aws_lambda_permission" "ftc_manual_gateway" {
 }
 
 resource "aws_lambda_function" "ftc_manual_index_func" {
-  function_name = "FtcManualIndexer"
+  function_name = "FtcManualIndexer-${terraform.workspace}"
   filename      = var.query_func_filename
 
   source_code_hash = filebase64sha256(var.query_func_filename)

@@ -1,5 +1,5 @@
 resource "aws_api_gateway_rest_api" "ftc_manual_api" {
-  name        = "ftc_manual_api"
+  name        = "ftc_manual_api_${terraform.workspace}"
   description = "FTC Manual Search API"
 }
 
@@ -36,7 +36,7 @@ resource "aws_api_gateway_deployment" "ftc_manual_api" {
 resource "aws_api_gateway_domain_name" "ftc_manual_api" {
   domain_name = "ftc-manual-api.maths22.com"
 
-  regional_certificate_arn = "arn:aws:acm:us-west-2:902151335766:certificate/20023531-9009-4f25-bc69-ca1133bf77f2"
+  regional_certificate_arn = "${var.api_cert_arn}"
 
   endpoint_configuration {
     types = ["REGIONAL"]
