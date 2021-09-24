@@ -19,7 +19,7 @@ class PdfImporter
 
   def pdf_string
     @pdf_string ||= begin
-      pdf = PDF::Reader.new(open(config['url']))
+      pdf = PDF::Reader.new(URI.open(config['url']))
       pdf.pages.map(&:text).join("\n")
     end
   end
