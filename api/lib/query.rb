@@ -11,7 +11,8 @@ class Query
                               'body',
                               'question',
                               'answer',
-                              'category'
+                              'category',
+                              'tags'
                             ],
                             default_operator: 'and'
                         } } }

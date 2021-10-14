@@ -1,15 +1,16 @@
 resource "aws_lambda_function" "ftc_manual_query_func" {
   function_name = "FtcManualQueryApi-${terraform.workspace}"
-  filename      = var.query_func_filename
 
-  source_code_hash = filebase64sha256(var.query_func_filename)
-
-  handler     = var.query_func_handler
-  runtime     = "ruby2.7"
-  timeout     = "300"
-  memory_size = "256"
+  timeout      = "300"
+  memory_size  = "256"
+  image_uri    = module.docker_image.image_uri
+  package_type = "Image"
 
   role = aws_iam_role.ftc_manual_lambda_role.arn
+
+  image_config {
+    command = ["query.handler"]
+  }
 
   environment {
     variables = {
@@ -32,16 +33,17 @@ resource "aws_lambda_permission" "ftc_manual_gateway" {
 
 resource "aws_lambda_function" "ftc_manual_index_func" {
   function_name = "FtcManualIndexer-${terraform.workspace}"
-  filename      = var.query_func_filename
 
-  source_code_hash = filebase64sha256(var.query_func_filename)
-
-  handler     = var.index_func_handler
-  runtime     = "ruby2.7"
-  timeout     = "900"
-  memory_size = "512"
+  timeout      = "900"
+  memory_size  = "512"
+  image_uri    = module.docker_image.image_uri
+  package_type = "Image"
 
   role = aws_iam_role.ftc_manual_lambda_role.arn
+
+  image_config {
+    command = ["import.handler"]
+  }
 
   environment {
     variables = {

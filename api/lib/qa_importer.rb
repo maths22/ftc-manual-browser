@@ -1,6 +1,6 @@
 require 'date'
-require 'nokogiri'
-require 'open-uri'
+require 'ruby-ddp-client'
+require 'redcarpet'
 
 class QaImporter
   attr_reader :config
@@ -18,28 +18,48 @@ class QaImporter
   end
 
   def posts
-    # post[:category] = parser.section
     # post[:author] = parser.author
-    document.css('.item').map do |it|
-      number = it.css('[name=number]').first.text.to_i
+    raw_posts.values.map do |it|
+      number = it['number']
+      published = !it['published'].nil?
+      next unless published
       {
         id: "ftc-qa:#{number}",
         number: number,
-        title: it.css('h2').first.text.gsub(/Q[0-9]+ /, ''),
-        question: it.css('[name=question]').first.text,
-        answer: it.css('[name=answer]').first.text,
-        questionAuthor: it.css('[name=asker]').first.text,
-        posted: Date.parse(it.css('[name=pubdate]').first.text).to_time.to_i,
-        url: config['base_url'] + '/qa/' + number.to_s,
+        title: it['title'],
+        category: it['section']['section'],
+        question: markdown_renderer.render(it['question']),
+        answer: markdown_renderer.render(it['published']['answer']),
+        questionAuthor: it['askerTeam'],
+        posted: it['published']['date']['$date'],
+        tags: it['tags'].map { |t| t['name'] },
+        url: 'https://' + config['base_url'] + '/qa/' + number.to_s,
         raw: it.to_s,
         version: 1,
         type: 'ForumPost',
         forum: 'ftc-qa'
       }
-    end
+    end.compact
   end
 
-  def document
-    @document ||= Nokogiri::HTML(URI.open(config['base_url'] + '/onepage.html'))
+  def markdown_renderer
+    @markdown_renderer ||= Redcarpet::Markdown.new(Redcarpet::Render::HTML)
+  end
+
+  def raw_posts
+    @raw_posts ||= begin
+      qa = nil
+      EM.run do
+        ddp_client = RubyDdp::Client.new("wss://#{config['base_url']}/websocket", [], tls: {verify_peer: false})
+
+        ddp_client.onconnect = lambda do |event|
+          ddp_client.subscribe('qa', []) do |result|
+            qa = ddp_client.collections['qa']
+            EM.stop_event_loop
+          end
+        end
+      end
+      qa
+    end
   end
 end

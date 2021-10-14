@@ -11,6 +11,13 @@ class EsInitializer
                   keyword:  { type: 'keyword' }
               }
             },
+            tags: {
+              type: 'text',
+              analyzer: 'english',
+              fields: {
+                  keyword:  { type: 'keyword' }
+              }
+            },
             forum: {
               type: 'keyword'
             },

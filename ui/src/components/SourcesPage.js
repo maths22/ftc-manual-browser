@@ -61,8 +61,8 @@ class SourcesPage extends Component {
 
   renderForumSorce (source) {
     return [
-      <TableCell>Forum</TableCell>,
-      <TableCell><a href={`${source.domain}/node/${source.nodeId}`} target='_blank'>{source.name}</a></TableCell>,
+      <TableCell>Q&A</TableCell>,
+      <TableCell><a href={`https://${source.base_url}`} target='_blank'>{source.name}</a></TableCell>,
       <TableCell>{timeAgo.format(new Date(source.updatedAt), 'twitter')}</TableCell>
     ];
   }
@@ -85,7 +85,7 @@ class SourcesPage extends Component {
 
     const renderRow = {
       'pdf': this.renderPdfSource,
-      'vbulletin': this.renderForumSorce,
+      'qa': this.renderForumSorce,
     }
 
     const rowStyle = { height: '2rem' };

@@ -1,3 +1,4 @@
+require 'bundler/setup'
 require 'aws-sdk-ssm'
 require 'elasticsearch'
 require 'json'

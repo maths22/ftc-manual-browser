@@ -2,6 +2,10 @@ variable "query_func_filename" {
   default = "../api/query.zip"
 }
 
+variable "src_dir" {
+  default = "../api/"
+}
+
 variable "query_func_handler" {
   default = "query.handler"
 }

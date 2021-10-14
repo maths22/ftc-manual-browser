@@ -1,3 +1,4 @@
+require 'bundler/setup'
 require 'json'
 require 'require_all'
 
@@ -5,7 +6,7 @@ require_all 'lib'
 
 def handler(event:, context:)
   Config.dynamo_table.scan.items.map do |item|
-    importer = { 'pdf' => PdfImporter, 'vbulletin' => VbulletinImporter, 'qa' => QaImporter }[item['type']]
+    importer = { 'pdf' => PdfImporter, 'qa' => QaImporter }[item['type']]
     importer.new(item).import
     Config.dynamo_table.update_item(
       key: { 'SourceId' => item['SourceId']},

@@ -56,7 +56,7 @@ class SearchResults extends Component {
   }
 
   renderForumPost (post) {
-    const date = new Date(parseInt(post.posted + '000'));
+    const date = new Date(parseInt(post.posted));
     return <div>
     <Typography variant="h6"><a target='_blank' href={post.url} dangerouslySetInnerHTML={{__html: post.title}}/></Typography>
     <Typography variant="caption">Posted at {date.toLocaleString()}</Typography>
@@ -65,7 +65,7 @@ class SearchResults extends Component {
     </p>
     <hr/>
     <p>
-      <div dangerouslySetInnerHTML={{__html: post.answer}} /> — {post.author}
+      <div dangerouslySetInnerHTML={{__html: post.answer}} />
     </p>
   </div>;
   }

@@ -1,9 +1,0 @@
-#!/usr/bin/env bash
-
-script_dir=$(dirname "$(greadlink -f "$0")")
-
-rm -rf vendor
-docker run --name lambda-dep-build -v $script_dir/../Gemfile.lock:/var/gem_build/Gemfile.lock -v $script_dir/../Gemfile:/var/gem_build/Gemfile -w /var/gem_build lambci/lambda:build-ruby2.7 bash -c "bundle install --deployment"
-docker cp lambda-dep-build:/var/gem_build/vendor "$script_dir/.."
-docker rm lambda-dep-build
-rm -rf vendor/bundle/ruby/**/cache
