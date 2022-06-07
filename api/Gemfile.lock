@@ -42,7 +42,7 @@ GEM
       eventmachine (>= 0.12.0)
       websocket-driver (>= 0.5.1)
     hashery (2.1.2)
-    jmespath (1.4.0)
+    jmespath (1.6.1)
     json (2.5.1)
     multi_json (1.13.1)
     multipart-post (2.1.1)
