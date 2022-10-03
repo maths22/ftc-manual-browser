@@ -1,4 +1,4 @@
-FROM public.ecr.aws/lambda/ruby:2.7
+FROM --platform=amd64 public.ecr.aws/lambda/ruby:2.7
 
 COPY Gemfile Gemfile.lock ${LAMBDA_TASK_ROOT}/
 

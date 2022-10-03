@@ -18,9 +18,7 @@ class QaImporter
   end
 
   def posts
-    # post[:author] = parser.author
-    raw_posts.values.map do |it|
-      number = it['number']
+    raw_posts.map do |number, it|
       published = !it['published'].nil?
       next unless published
       {
