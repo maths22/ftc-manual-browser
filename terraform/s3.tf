@@ -3,8 +3,14 @@ data "aws_iam_policy_document" "asset_bucket" {
     sid = "1"
 
     principals {
-      type        = "AWS"
-      identifiers = ["*"]
+      type        = "Service"
+      identifiers = ["cloudfront.amazonaws.com"]
+    }
+
+    condition {
+      test     = "StringEquals"
+      variable = "AWS:SourceArn"
+      values   = [aws_cloudfront_distribution.distribution.arn]
     }
 
     actions = [
@@ -24,11 +30,6 @@ resource "aws_s3_bucket_policy" "asset_bucket" {
 
 resource "aws_s3_bucket" "asset_bucket" {
   bucket = "ftc-manual-assets-${terraform.workspace}"
-  acl    = "public-read"
-
-  website {
-    index_document = "index.html"
-  }
 
   tags = {
     Project     = "Ftc-manual"

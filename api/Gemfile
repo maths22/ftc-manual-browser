@@ -8,6 +8,7 @@ gem 'aws-sdk-dynamodb'
 gem 'pdf-reader'
 gem 'redcarpet'
 gem 'require_all'
+gem 'rexml'
 gem 'ruby-ddp-client', git: 'https://github.com/maths22/ruby-ddp-client'
 
 gem 'chronic'
