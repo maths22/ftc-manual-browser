@@ -1,26 +1,24 @@
-import './polyfill';
-
 import React from 'react';
-import ReactDOM from 'react-dom';
-import { Provider } from 'react-redux';
-import { createBrowserHistory } from 'history';
+import { createRoot } from 'react-dom/client';
 import ReactGA from 'react-ga';
-
-import configureStore from './store';
 
 import './index.css';
 import * as serviceWorker from './serviceWorker';
-import AppRouter from './AppRouter';
+import appRouter from './AppRouter';
 import * as Sentry from '@sentry/browser';
+import {
+  RouterProvider,
+} from 'react-router-dom';
 
-import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
-import orange from '@material-ui/core/colors/orange';
+import { StyledEngineProvider, createTheme, adaptV4Theme } from '@mui/material/styles';
+import { ThemeProvider } from '@mui/material/styles';
+import orange from '@mui/material/colors/orange';
 
-const theme = createMuiTheme({
+const theme = createTheme(adaptV4Theme({
   palette: {
     primary: orange,
   },
-});
+}));
 
 Sentry.init({
  dsn: process.env.REACT_APP_SENTRY_DSN
@@ -28,16 +26,13 @@ Sentry.init({
 
 ReactGA.initialize(process.env.REACT_APP_GA_KEY);
 
-const history = createBrowserHistory();
-const store = configureStore(history);
-
-ReactDOM.render(
-    <MuiThemeProvider theme={theme}>
-      <Provider store={store}>
-        <AppRouter history={history}/>
-      </Provider>
-    </MuiThemeProvider>,
-    document.getElementById('root')
+const root = createRoot(document.getElementById('root'));
+root.render(
+    <StyledEngineProvider injectFirst>
+      <ThemeProvider theme={theme}>
+        <RouterProvider router={appRouter} />
+      </ThemeProvider>
+    </StyledEngineProvider>
 );
 
 // If you want your app to work offline and load faster, you can change

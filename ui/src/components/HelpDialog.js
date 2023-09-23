@@ -1,28 +1,23 @@
-import React, {Component} from 'react';
+import React from 'react';
 
-import Typography from '@material-ui/core/Typography';
-import Dialog from '@material-ui/core/Dialog';
-import DialogTitle from '@material-ui/core/DialogTitle';
-import DialogContent from '@material-ui/core/DialogContent';
+import { useTheme, useMediaQuery, Dialog, DialogContent, DialogTitle, IconButton, Typography } from '@mui/material';
 
-import CloseIcon from '@material-ui/icons/Close';
+import { Close } from '@mui/icons-material';
 
-import withMobileDialog from '@material-ui/core/withMobileDialog';
-import IconButton from '@material-ui/core/IconButton';
+export default function HelpDialog({visible, onClose}) {
+  const theme = useTheme();
+  const fullScreen = useMediaQuery(theme.breakpoints.down('sm'));
 
-class HelpDialog extends Component {
-  render () {
-    const {fullScreen} = this.props;
-
-    return <Dialog
+  return (
+    <Dialog
         fullScreen={fullScreen}
-        open={this.props.visible}
-        onClose={this.props.onClose}
+        open={visible}
+        onClose={onClose}
         aria-labelledby="form-dialog-title"
     >
-      <DialogTitle id="form-dialog-title" disableTypography style={{display: 'flex', alignItems: 'center'}}>
+      <DialogTitle id="form-dialog-title" style={{display: 'flex', alignItems: 'center'}}>
         <Typography variant="h6" style={{flexGrow: 1}}>Search Help</Typography>
-        <IconButton onClick={this.props.onClose}><CloseIcon/></IconButton>
+        <IconButton onClick={onClose} size="large"><Close/></IconButton>
       </DialogTitle>
       <DialogContent>
         By default terms are joined with a logical "AND".  The following operators are supported:
@@ -42,9 +37,6 @@ class HelpDialog extends Component {
           ElasticSearch documentation
         </a>
       </DialogContent>
-    </Dialog>;
-  }
+    </Dialog>
+  );
 }
-
-
-export default withMobileDialog()(HelpDialog);

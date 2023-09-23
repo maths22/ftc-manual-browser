@@ -1,17 +1,13 @@
-import React, {Component} from 'react';
+import React, {useEffect} from 'react';
 
-import { withStyles } from '@material-ui/core/styles';
+import { makeStyles } from '@mui/styles';
 
-import AppBar from '@material-ui/core/AppBar';
-import Toolbar from '@material-ui/core/Toolbar';
-import IconButton from '@material-ui/core/IconButton';
-import Button from '@material-ui/core/Button';
-import HomeIcon from '@material-ui/icons/Home';
-import Typography from '@material-ui/core/Typography';
+import { AppBar, Button, IconButton, Toolbar, Typography } from '@mui/material';
+import { Home } from '@mui/icons-material';
 
 import {Link} from 'react-router-dom';
 
-const styles = {
+const useStyles = makeStyles({
   root: {
     flexGrow: 1,
   },
@@ -22,42 +18,39 @@ const styles = {
     marginLeft: -12,
     marginRight: 20,
   },
-  loginForm: {
-    width: '18em',
-    padding: '1em'
-  },
   tab: {
     minWidth: 0
   }
-};
+});
 
-class HeadingBar extends Component {
-  componentWillUpdate(nextProps) {
-    document.title = nextProps.title || 'FTC Manual Search';
-  }
+export default function HeadingBar({title}) {
+  const classes = useStyles();
+  useEffect(() => {
+    document.title = title || 'FTC Manual Search';
+  }, [title]);
 
-  render () {
-
-    return <div>
-      <div className={this.props.classes.root}>
+  return (
+    <div>
+      <div className={classes.root}>
         <AppBar position="static">
           <Toolbar>
-            <IconButton className={this.props.classes.menuButton} color="inherit" aria-label="Home"
-                        to="/"
-                        component={props => <Link {...props}/>}>
-              <HomeIcon />
+            <IconButton
+              className={classes.menuButton}
+              color="inherit"
+              aria-label="Home"
+              to="/"
+              component={Link}
+              size="large">
+              <Home />
             </IconButton>
-            <Typography variant="h6" color="inherit" className={this.props.classes.grow}>
-              {this.props.title || 'FTC Manual Search'}
+            <Typography variant="h6" color="inherit" className={classes.grow}>
+              {title || 'FTC Manual Search'}
             </Typography>
             <Button color="inherit" to="/sources" 
-                    component={props => <Link {...props}/>}>Sources</Button>
+                    component={Link}>Sources</Button>
           </Toolbar>
         </AppBar>
       </div>
-    </div>;
-  }
+    </div>
+  );
 }
-
-
-export default withStyles(styles)(HeadingBar);
