@@ -37,7 +37,6 @@ const useStyles = makeStyles(theme => ({
 export default function SourcesPage() {
   const classes = useStyles();
   const { definitions, forum_posts, rules} = useLoaderData();
-  console.log(definitions, forum_posts, rules);
 
   return <Paper className={classes.root}>
       <h2>Definitions</h2>

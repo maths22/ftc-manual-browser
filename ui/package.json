@@ -14,17 +14,17 @@
     "react-app-env": "^1.2.3",
     "react-dom": "^18.2.0",
     "react-ga": "^3.1.1",
-    "react-router-dom": "^6.16.0",
-    "react-scripts": "5.0.1"
+    "react-router-dom": "^6.16.0"
   },
   "devDependencies": {
+    "@vitejs/plugin-react-swc": "^3.3.2",
+    "vite": "^4.4.9",
     "webpack-bundle-analyzer": "^3.3.2"
   },
   "scripts": {
-    "start": "PORT=3002 react-app-env start",
-    "build": "react-app-env build",
-    "test": "react-app-env test",
-    "eject": "react-scripts eject"
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
   },
   "eslintConfig": {
     "extends": "react-app",

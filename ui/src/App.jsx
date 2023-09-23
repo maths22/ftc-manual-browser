@@ -1,5 +1,4 @@
 import React from 'react';
-import './App.css';
 import SearchForm from './components/SearchForm';
 import SearchResults from './components/SearchResults';
 
